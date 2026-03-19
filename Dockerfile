@@ -9,17 +9,17 @@ RUN npm install
 FROM node:20.19.5-alpine3.21
 # Create a group and user
 WORKDIR /opt/server
-RUN addgroup -S dotmart && adduser -S dotmart -G dotmart && \
-    chown -R dotmart:dotmart /opt/server
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
+    chown -R roboshop:roboshop /opt/server
 EXPOSE 8080
-LABEL com.project="dotmart" \
+LABEL com.project="roboshop" \
       component="user" \
       created_by="karunakar"
 ENV MONGO="true" \
     REDIS_URL="redis://redis:6379" \
     MONGO_URL="mongodb://mongodb:27017/users"
-COPY --from=build --chown=dotmart:dotmart /opt/server /opt/server
-USER dotmart
+COPY --from=build --chown=roboshop:roboshop /opt/server /opt/server
+USER roboshop
 CMD ["server.js"]
 ENTRYPOINT ["node"]
 
